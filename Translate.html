@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Language Translator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f0f4f7;
+    }
+    h2 {
+      color: #333;
+    }
+    textarea, select, button {
+      width: 100%;
+      font-size: 16px;
+      margin: 10px 0;
+      padding: 10px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+  </style>
+</head>
+<body>
+  <h2>Language Translator (via Google Translate)</h2>
+  <textarea id="inputText" placeholder="Type your text here..."></textarea>
+  <label for="translationType">Choose Translation:</label>
+  <select id="translationType">
+    <option value="te|en">Telugu to English</option>
+    <option value="en|te">English to Telugu</option>
+    <option value="hi|ta">Hindi to Tamil</option>
+    <option value="ta|en">Tamil to English</option>
+  </select>
+  <button onclick="doTranslate()">Translate</button>
+  
+
+  <script>
+    function doTranslate() {
+      const text = document.getElementById("inputText").value;
+      const langPair = document.getElementById("translationType").value;
+      const [fromLang, toLang] = langPair.split("|");
+
+      if (text.trim() === "") {
+        alert("Please enter some text to translate.");
+        return;
+      }
+
+      const encodedText = encodeURIComponent(text);
+      const translateURL = "https://translate.google.com/?sl=${fromLang}&tl=${toLang}&text=${encodedText}&op=translate";
+
+      window.open(translateURL, '_blank');
+    }
+  </script>
+</body>
+</html>
